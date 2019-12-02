@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script defer src="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+<style>
+body {
+    font-family: 'Lato', sans-serif;
+}
+
+.overlay {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.9);
+    overflow-x: hidden;
+    transition: 0.5s;
+}
+
+.overlay-content {
+    position: relative;
+    top: 5%;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.overlay a {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 36px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.overlay a:hover, .overlay a:focus {
+    color: #f1f1f1;
+}
+
+.overlay .closebtn {
+    position: absolute;
+    top: 0px;
+    right: 60px;
+    font-size: 45px;
+}
+
+
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: none;
+   color: none;
+   text-align: right;
+}
+
+@media screen and (max-height: 450px) {
+  .overlay a {font-size: 20px}
+  .overlay .closebtn {
+    font-size: 40px;
+    top: 15px;
+    right: 35px;
+  }
+  
+  
+  body {
+  font: 15px arial, sans-serif;
+  background-color: #d9d9d9;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+#bodybox {
+  margin: auto;
+  max-width: 550px;
+  font: 15px arial, sans-serif;
+  background-color: white;
+  border-style: solid;
+  border-width: 1px;
+  padding-top: 20px;
+  padding-bottom: 25px;
+  padding-right: 25px;
+  padding-left: 25px;
+  box-shadow: 5px 5px 5px grey;
+  border-radius: 15px;
+}
+
+#chatborder {
+  border-style: solid;
+  background-color: #f6f9f6;
+  border-width: 3px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 15px;
+  padding-right: 20px;
+  padding-left: 15px;
+  border-radius: 15px;
+}
+
+.chatlog {
+   font: 15px arial, sans-serif;
+}
+
+#chatbox {
+  font: 17px arial, sans-serif;
+  height: 22px;
+  width: 100%;
+}
+
+h1 {
+  margin: auto;
+}
+
+pre {
+  background-color: #f0f0f0;
+  margin-left: 20px;
+}
+}
+</style>
+</head>
+<body>
+
+
+    
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+
+
+div#chat div.options div.option{
+
+    padding: 0px 0px !important;
+    border: 10px solid rgba(6,153,184,0.3) ;
+    display: block !important;
+    margin: 10px;
+    background: #fff;
+    color:   !important;
+    cursor: pointer;
+    border-radius: 2px !important;
+    font-size: 20px !important;
+    
+    }
+    
+   
+  form.convFormDynamic {
+    width: calc(100% - 33px);
+    margin: 10px auto 15px;
+    padding: 0 !important;
+    position: relative;
+    
+}
+ 
+   
+
+
+
+form.convFormDynamic textarea.userInputDynamic {
+    border: none;
+    padding: 7px 10px;
+    outline: none;
+    font-size: 0.905rem;
+    float: left;
+    width: calc(100% - 70px);
+    line-height: 1.3em;
+    min-height: 1.7em;
+    max-height: 10rem;
+    display: block;
+    max-width: 88%;
+    margin-right: 2.5%;
+}
+
+
+form.convFormDynamic input.userInputDynamic {
+    border: none;
+    padding: 7px 10px;
+    outline: none;
+    font-size: 0.905rem;
+    float: left;
+    width: calc(100% - 70px);
+    line-height: 1.3em;
+    min-height: 1.7em;
+    max-height: 10rem;
+    display: block;
+    max-width: 88%;
+    margin-right: 2.5%;
+}
+
+div#chat.conv-form-wrapper div#messages {
+    max-height: 71vh;
+    height: auto !important;
+    overflow-y: scroll;
+}
+div#chat.conv-form-wrapper div#messages:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+div#chat.conv-form-wrapper {
+    position: relative;
+}
+div#chat.conv-form-wrapper div.wrapper-messages {
+    position: relative;
+    height: 577px;
+    max-height: 71vh;
+    overflow-y: scroll;
+}
+div#chat:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    display: block;
+    height: 30px;
+    top: 0;
+    left: 0;
+    z-index: 2;
+  
+}
+@media (max-width: 767px) {
+    div#chat.conv-form-wrapper div.wrapper-messages, div#chat.conv-form-wrapper div#messages {
+        max-height: 71vh;
+    }
+}
+
+div#chat div.wrapper-messages::-webkit-scrollbar, div#feed ul::-webkit-scrollbar, div#chat div.options::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+    /* remove scrollbar space */
+    background: transparent;
+    /* optional: just make scrollbar invisible */
+}
+input[type="text"].userInputDynamic.error {
+    color: #ac0000 !important;
+}
+input[type="text"].userInputDynamic {
+    border-radius: 3px;
+    margin: 7px 10px;
+}
+
+textarea.userInputDynamic.error {
+    color: #ac0000 !important;
+}
+
+textarea.userInputDynamic {
+    border-radius: 3px;
+    margin: 7px 10px;
+}
+
+div#chat.conv-form-wrapper div#messages {
+    transition: bottom 0.15s, padding-bottom 0.15s;
+    position: absolute;
+    bottom: 0;
+    height: auto !important;
+    width: 100%;
+    padding-bottom: 20px;
+    /*max-height: 71vh;*/
+}
+div#chat div.options {
+    word-wrap: normal;
+    white-space: nowrap;
+    overflow-x: scroll;
+    position: absolute;
+    bottom: 100%;
+    width: 100%;
+    transform: translateY(-5px);
+}
+div#chat div.options:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+div#chat div.options div.option {
+    padding: 7px 12px;
+    border: 1px solid rgba(6,153,184,0.3);
+    display: inline-block;
+    margin: 5px;
+    background: #fff;
+    color: #06c5a6;
+    cursor: pointer;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+div#chat.conv-form-wrapper div.message {
+    animation: slideTop 0.15s ease;
+}
+div#chat.conv-form-wrapper div.message:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+div#chat.conv-form-wrapper  div.message.ready {
+    animation: bounceIn 0.2s ease;
+    transform-origin: 0 0 0;
+}
+div#chat.conv-form-wrapper  div#messages div.message {
+    border-radius: 20px;
+    padding: 12px 22px;
+    font-size: 0.905rem;
+    color: #333;
+    display: inline-block;
+    padding: 10px 15px 8px;
+    border-radius: 20px;
+    margin-bottom: 5px;
+    float: right;
+    clear: both;
+    max-width: 65%;
+    word-wrap: break-word;
+}
+div#chat.conv-form-wrapper  div#messages div.message.to {
+    background: #efefef;
+    color: #6f6f6f;
+    float: left;
+    border-top-left-radius: 0;
+}
+div#chat.conv-form-wrapper div#messages div.message.from {
+    background: #06b79a;
+    color: #fff;
+    border-top-right-radius: 0;
+}
+.message.to+.message.from, .message.from+.message.to {
+    margin-top: 15px;
+}
+@keyframes slideTop {
+    0% {
+        margin-bottom: -25px;
+    }
+    100% {
+        margin-bottom: 0;
+    }
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: scale(0.75, 0.75);
+    }
+    100% {
+        transform: scale(1.0, 1.0);
+    }
+}
+div#chat div.options div.option:hover {
+    background: #eeeeee;
+}
+div#chat div.options div.option.selected {
+    background: #06b79a;
+    color: #fff;
+}
+div#chat div.options div.option.selected:hover {
+    background: #069c7f;
+}
+
+form.convFormDynamic button.submit {
+    padding: 3px;
+    border: none;
+    float: left;
+    margin: 5px;
+    color: #06c5a6;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    width: 36px;
+    height: 35px;
+    margin-top: 4px;
+    background: #fff;
+    outline: none !important;
+}
+
+
+form.convFormDynamic button.submit:hover {
+    background: #06b79a;
+    color: #fff;
+}
+
+button.submit.glow {
+    
+}
+.no-border {
+    border: none !important;
+}
+.dragscroll {
+    cursor: grab;
+}
+div#chat div#messages::-webkit-scrollbar, div#feed ul::-webkit-scrollbar {
+    width: 0px;
+    /* remove scrollbar space */
+    background: transparent;
+    /* optional: just make scrollbar invisible */
+}
+span.clear {
+    display: block;
+    clear: both;
+}
+
+.spinLoader,
+.spinLoader:before,
+.spinLoader:after {
+    background: #06c5a6 !important;
+    -webkit-animation: spinLoaderChat 1s infinite ease-in-out;
+    animation: spinLoaderChat 1s infinite ease-in-out;
+    width: 1em;
+    height: 4em;
+}
+.spinLoader {
+    color: #06c5a6 !important;
+    text-indent: -9999em;
+    margin: 50% auto;
+    position: relative;
+    font-size: 11px;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+}
+.spinLoader:before,
+.spinLoader:after {
+    position: absolute;
+    top: 0;
+    content: '';
+}
+.spinLoader:before {
+    left: -1.5em;
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+}
+.spinLoader:after {
+    left: 1.5em;
+}
+@-webkit-keyframes spinLoaderChat {
+    0%,
+    80%,
+    100% {
+        box-shadow: 0 0;
+        height: 4em;
+    }
+    40% {
+        box-shadow: 0 -2em;
+        height: 5em;
+    }
+}
+@keyframes spinLoaderChat {
+    0%,
+    80%,
+    100% {
+        box-shadow: 0 0;
+        height: 4em;
+    }
+    40% {
+        box-shadow: 0 -2em;
+        height: 5em;
+    }
+}
+</style>
+	<title>Welcome to Dymond systems!</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://eduardotkoller.github.io/convForm/dist/jquery.convform.cs">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" type="text/css" href="https://eduardotkoller.github.io/convForm/demo.css">
+</head>
+<body>
+
+<section id="demo">
+	    <div class="vertical-align">
+	        <div class="container">
+	            <div class="row">
+	                <div class="col-sm-6 col-sm-offset-3 col-xs-offset-0">
+	                    <div class="card no-border">
+	                        <div id="chat" class="conv-form-wrapper">
+	                            <form action="" method="GET" class="hidden">
+	  
+	                                <select name="programmer" data-callback="storeState" data-conv-question=" Hello👋, welcome to dymond! Need a little help with a home project?
+          ">
+       
+	           
+	                                  
+                                        
+                                        <option value="yes">Yes! I want to get an estimate</option>
+	                                    <option value="no">Tell me more about dymond systems...</option>
+	                                </select>
+                                   
+                         
+	                                <div data-conv-fork="programmer">
+	                                    <div data-conv-case="yes">
+	                            <select name="programmer" data-callback="storeState" data-conv-question="
+                                    
+           
+                                
+                                Awesome!!! We would 😍love to do it! When would be a good time for us to come take a look? ">
+                               
+     
+	                                    <option value="quote1">Anytime</option>
+	                                    <option value="sched">We'll need to schedule it</option>
+     
+	                                </select>
+                                    
+                                    	                                <div data-conv-fork="programmer">
+	                                    <div data-conv-case="no">
+	                            <select name="programmer" data-callback="storeState" data-conv-question="
+                                    
+           
+                                
+                                Sure, at Dymond systems, We want to make your experience with renovation and repair contractors as seamless as possible by combining all services into a single entity. ">
+                               
+     
+	                                    <option value="quote1">I want a quote</option>
+	                                    <option value="more2">Tell me more</option>
+     
+	                                </select>
+                                    
+      	                                <div data-conv-fork="programmer">
+	                                    <div data-conv-case="more2">
+	                            <select name="programmer" data-callback="storeState" data-conv-question="
+                                    
+           
+                                
+                               We offer a multitude of services from handy man work to property management. Dymond systems has proven to be a very different kind of company. ">
+                               
+     
+	                                    <option value="quote1">Cool... I need a quote</option>
+	                                    <option value="services">What services do you offer?</option>
+     
+	                                </select>                              
+  	                                <div data-conv-fork="programmer">
+	                                    <div data-conv-case="services">
+	                            <select name="programmer" data-callback="storeState" data-conv-question="
+                                    
+           
+                                
+                                Services offered include painting, flooring (tile, hardwood, carpet, laminate, and specialty floor coatings) roofing, pressure washing, plumbing, landscaping, carpentry, electrical, and much more.">
+                               
+     
+	                                    <option value="quote1">Sounds good... I need a quote</option>
+	                    
+     
+	                                </select>                                  
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                
+	                                <div data-conv-fork="programmer">
+	                                    <div data-conv-case="quote1">
+	                            <select name="programmer" data-callback="storeState" data-conv-question="
+                                    
+           
+                                
+                                Great! I just need a little info from you and we can get you an estimate ASAP!!!">
+                               
+     
+	                                    <option value="prompt">OK! Let's do it!</option>
+	                         
+     
+	                                </select>
+                                    
+                                   
+	                                <div data-conv-fork="programmer">
+	                                    <div data-conv-case="prompt">
+	                            <select name="programmer" data-callback="storeState" data-conv-question="
+                                    
+           
+                                
+                                I'm going to open a form for you... 
+                                <br>
+                                <br>
+                                In the next 30 seconds, you will be on your way to making your dream become reality!!!">
+                               
+     
+	<option value="google" data-callback="google">Sounds great!!!</option>                                                            
+                               
+ 
+                                    
+                                    	                                <div data-conv-fork="programmer">
+	                                    <div data-conv-case="sched">
+	                            <select name="programmer" data-callback="storeState" data-conv-question="
+                                    
+           
+                                
+                                No problem! I just need a some contact info and we can set it up!">
+                               
+     
+	                                    <option value="prompt">lets do it</option>
+	                                    <option value="no">We'll need to schedule it</option>
+     
+	                                </select>                             
+                                    
+                                    
+                                    
+     	                                <div data-conv-fork="programmer">
+	                                    <div data-conv-case="yes">
+	                            <select name="programmer" data-callback="storeState" data-conv-question="
+                                    
+           
+                                
+                                👌Ok, great! If you would be so kind as to just tell us your contact info, we'll get this started right away!">
+                                
+                                <option value="google" data-callback="google">Google</option>
+                               
+     
+	                                    <option value="yes">linkYes! tell me more</option>
+	                                    <option value="no6">no I hate better days....</option>
+     
+	                                </select>                               
+                                    
+ <!--start new-->
+ 
+                          
+	                                <div data-conv-fork="programmer">
+	                                    <div data-conv-case="great1">
+	                            <select name="programmer" data-callback="storeState" data-conv-question="
+                                    
+           
+                                
+                                Awesome!!! Ready to have a better day?">
+                               
+     
+	                                    <option value="g5">gYes! tell me more</option>
+	                                    <option value="no">no I hate better days....</option>
+     
+	                                </select>
+                                    
+                                    
+                                    
+     	                                <div data-conv-fork="programmer">
+	                                    <div data-conv-case="no6">
+	                            <select name="programmer" data-callback="storeState" data-conv-question="
+                                    
+           
+                                
+                                no6Awesome!!! Ready to have a better day?">
+                               
+     
+	                                    <option value="g5">Yes! tell me more</option>
+	                                    <option value="no">no I hate better days....</option>
+     
+	                                </select> 
+ 
+ <!-- end new -->
+                                    
+                                    
+                                    
+     <!--start-->
+                                                   <div data-conv-fork="programmer">
+	                                    <div data-conv-case="g5">
+	                            <select name="programmer" data-callback="storeState" data-conv-question="I'm a pretty cool chat bot that is interactive! I can even show images and GIFS... want to see a cool one?">
+	                                    <option value="gif">Sure! Show me</option>
+	                                    <option value="no">No, i hate GIFS</option>
+	                                </select>
+     <!--end-->
+                 
+                                                            <div data-conv-fork="programmer">
+	                                    <div data-conv-case="gif">
+	                            <select name="programmer" data-callback="storeState" data-conv-question=" <img src=&quot;https://i.chzbgr.com/full/9051592704/h8E5D55E4/&quot; 
+                                    style=&quot;width:100%&quot;> He HE HE... you know you like it!
+                                    <br>
+                                    <br>
+                                    You know what else?">
+	                                    <option value="imade">What?</option>
+	                                    <option value="idontcare"> I don't care</option>
+	                                </select>  
+                 
+<!--start-->
+                                                           <div data-conv-fork="programmer">
+	                                    <div data-conv-case="imade">
+	                            <select name="programmer" data-callback="storeState" data-conv-question=" I just made you my click bitch! You've just been trained to click!!!!!
+                                <br>
+                                <br>
+                                I'm tired now...... SEE YA">
+                                    
+                                    
+                                    
+                                                                             
+                                    
+                                    
+                                    
+
+	                                </select> 
+
+
+<!--stop-->
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    <div data-conv-fork="programmer">
+	                                    <div data-conv-case="imade">
+		                            <select name="programmer" data-callback="storeState" data-conv-question="vvvvvvvvvvv<img src=&quot;http://mrwgifs.com/wp-content/uploads/2013/07/Not-Sure-If-Fry-Meme-Gif.gif&quot; 
+                                    style=&quot;width:100%&quot;> Yeah, it would'nt be would it?
+                                    <br>
+                                    <br>
+                                    Do you want to hear more or not?">
+	                                    <option value="aboutbot">Yes please!</option>
+	                                    <option value="not">NOT</option>
+                                         <option value="ok">more</option>
+	                                </select>
+                                    
+                                                                                               <div data-conv-fork="programmer">
+	                                    <div data-conv-case="aboutbot">
+	                            <select name="programmer" data-callback="storeState" data-conv-question=" bbbbbbbbbbbbbbb<img src=&quot;https://i.chzbgr.com/full/9051592704/h8E5D55E4/&quot; 
+                                    style=&quot;width:100%&quot;> He HE HE... you know you like it!
+                                    <br>
+                                    <br>
+                                    You know what else?">
+                                    
+                                    
+                                    
+                                                                             
+                                    
+                                    
+                                    
+	                                    <option value="gif">What?</option>
+	                                    <option value="no"> I dont care</option>
+	                                </select>
+                                    
+                                    
+                                                      <div data-conv-fork="programmer">
+	                                    <div data-conv-case="yesplease">
+	                            <select name="programmer" data-callback="storeState" data-conv-question="Coolio, here's some links that may help you">
+	                                    <option value="yes">Paint</option>
+	                                    <option value="no">Other</option>
+	                                </select>  
+                                    
+                                    
+                                    
+                                                                                 <div data-conv-fork="programmer">
+	                                    <div data-conv-case="no">
+	                            <select name="programmer" data-callback="storeState" data-conv-question="<img src=&quot;http://mrwgifs.com/wp-content/uploads/2013/07/Not-Sure-If-Fry-Meme-Gif.gif&quot; 
+                                    style=&quot;width:100%&quot;>                              
+                                
+                               FUCK YOU THEN!!!!">
+	     
+	                                </select>
+                                
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                                    <div data-conv-fork="programmer">
+	                                    <div data-conv-case="yes">
+	                            <select name="programmer" data-callback="storeState" data-conv-question="Cool, here's some links that may help you">
+	                                    <option value="yes">Paint</option>
+	                                    <option value="no">Other</option>
+	                                </select>
+                                    
+                                              <div data-conv-fork="programmer">
+	                                    <div data-conv-case="yes">
+	                            <select name="programmer" data-callback="storeState" data-conv-question="Cool, wich do you want to do?">
+	                                    <option value="yes">Paint</option>
+	                                    <option value="links">Other</option>
+	                                </select>
+                                    
+                                    <div data-conv-fork="programmer">
+	                                    <div data-conv-case="links">
+		                            <select name="programmer" data-callback="storeState" data-conv-question="links">
+	                                    <option value="google" data-callback="google">Google</option>
+											<option value="bing" data-callback="bing">Bing</option>
+                                           
+                                            <option value="dymond" data-callback="dymond">dymond</option>
+                                            <option value="dymond" data-callback="dymond">dymond</option>
+                                             <option value="test0">test0</option>
+	                                </select>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                             <div data-conv-fork="programmer">
+	                                    <div data-conv-case="test0">
+	                            <select name="programmer" data-callback="storeState" data-conv-question="Awesome! 
+  <img src=&quot;http://mrwgifs.com/wp-content/uploads/2013/07/Not-Sure-If-Fry-Meme-Gif.gif&quot; 
+                                    style=&quot;width:100%&quot;>                              
+                                
+                               so.... Which services are you interested in?">
+	                                    <option value="yes">Paint</option>
+	                                    <option value="no">Other</option>
+                                         <option value="test2">test2</option>
+	                                </select>
+                                    
+                                    
+                                    
+                          <div data-conv-fork="programmer">
+	                                    <div data-conv-case="yes">
+	                            <select name="programmer" data-callback="storeState" data-conv-question="Awesome! 
+  <img src=&quot;http://mrwgifs.com/wp-content/uploads/2013/07/Not-Sure-If-Fry-Meme-Gif.gif&quot; 
+                                    style=&quot;width:100%&quot;>                              
+                                
+                               so.... Which services are you interested in?">
+	                                    <option value="yes">Paint</option>
+	                                    <option value="no">Other</option>
+	                                </select>  
+                                    
+                                    
+                                    
+          <!-- start-->
+                                                               <div data-conv-fork="programmer">
+	                                    <div data-conv-case="test4">
+	                            <select name="programmer" data-callback="storeState" data-conv-question="test4 Awesome! 
+  <img src=&quot;https://i.chzbgr.com/full/9051592704/h8E5D55E4/&quot; 
+                                    style=&quot;width:100%&quot;>                              
+                                
+                               so.... Which services are you interested in?">
+	                                    <option value="name">test3</option>
+	                                    <option value="no">Other</option>
+	                                </select> 
+         <!--end-->
+                                    
+                                    
+                                    
+                                    
+                                                      <div data-conv-fork="programmer">
+	                                    <div data-conv-case="test3">
+	                            <select name="programmer" data-callback="storeState" data-conv-question="Awesome! 
+  <img src=&quot;https://i.chzbgr.com/full/9051592704/h8E5D55E4/&quot; 
+                                    style=&quot;width:100%&quot;>                              
+                                
+                               so.... Which services are you interested in?">
+	                                    <option value="name">test3</option>
+	                                    <option value="no">Other</option>
+	                                </select> 
+                                    
+                                    
+                                    
+                                  
+              <input type="text" name="name" data-conv-question="Alright! First, tell me your full name, please.|Okay! Please, tell me your name first.">
+	                                <input type="text" data-conv-question="Howdy, {name}:0! It's a pleasure to meet you. (note that this question doesn't expect any answer)" data-no-answer="true">
+	                                <input type="text" data-conv-question="This plugin supports multi-select too. Let's see an example." data-no-answer="true">
+	                                <select name="multi[]" data-conv-question="What kind of music do you like?" multiple>
+	                                    <option value="Rock">Rock</option>
+	                                    <option value="Pop">Pop</option>
+	                                    <option value="Country">Country</option>
+	                                    <option value="Classic">Classic</option>
+	                                </select>                                 
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+	                                    </div>
+	                                </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                
+                                    
+                                    
+                                    
+									<select data-conv-question="Selects also support callback functions. For example, try one of these:">
+											<option value="google" data-callback="google">Google</option>
+											<option value="bing" data-callback="bing">Bing</option>
+									</select>
+	                                <select name="callbackTest" data-conv-question="You can do some cool things with callback functions. Want to rollback to the 'programmer' question before?">
+	                                    <option value="yes" data-callback="rollback">Yes</option>
+	                                    <option value="no" data-callback="restore">No</option>
+	                                </select>
+	                                <select data-conv-question="This is it! If you like me, consider donating! If you need support, contact me. When the form gets to the end, the plugin submits it normally, like you had filled it." id="">
+	                                    <option value="">Awesome!</option>
+	                                </select>
+	                            </form>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</section>
+	                
+
+	<script type="text/javascript" src="https://eduardotkoller.github.io/convForm/jquery-1.12.3.min.js"></script>
+	<script type="text/javascript" src="https://eduardotkoller.github.io/convForm/dist/autosize.min.js"></script>
+	
+
+	<script>
+    function dymond() {
+			window.open("http://dymondsystems.com");
+		}
+   
+		function google() {
+			window.open("https://dymondsystems.com/getquote");
+		}
+		function bing() {
+			window.open("https://bing.com");
+		}
+		var rollbackTo = false;
+		var originalState = false;
+		function storeState(stateWrapper) {
+			rollbackTo = stateWrapper.current;
+			console.log("storeState called: ",rollbackTo);
+		}
+		function rollback(stateWrapper) {
+			console.log("rollback called: ", rollbackTo, originalState);
+			console.log("answers at the time of user input: ", stateWrapper.answers);
+			if(rollbackTo!=false) {
+				if(originalState==false) {
+					originalState = stateWrapper.current.next;
+						console.log('stored original state');
+				}
+				stateWrapper.current.next = rollbackTo;
+				console.log('changed current.next to rollbackTo');
+			}
+		}
+		function restore(stateWrapper) {
+			if(originalState != false) {
+				stateWrapper.current.next = originalState;
+				console.log('changed current.next to originalState');
+			}
+		}
+	</script>
+    <script>
+    
+    
+    function SingleConvState(input){
+    this.input = input;
+    this.next = false;
+    return this;
+}
+SingleConvState.prototype.hasNext = function(){
+    return this.next;
+};
+function ConvState(wrapper, SingleConvState, form, params) {
+    this.form = form;
+    this.wrapper = wrapper;
+    this.current = SingleConvState;
+    this.answers = {};
+    this.parameters = params;
+    this.scrollDown = function() {
+        $(this.wrapper).find('#messages').stop().animate({scrollTop: $(this.wrapper).find('#messages')[0].scrollHeight}, 600);
+    }.bind(this);
+}
+ConvState.prototype.next = function(){
+    if(this.current.input.hasOwnProperty('callback')) {
+        window[this.current.input.callback](this);
+    }
+    if(this.current.hasNext()){
+        this.current = this.current.next;
+        if(this.current.input.hasOwnProperty('fork') && this.current.input.hasOwnProperty('case')){
+            if(this.answers.hasOwnProperty(this.current.input.fork) && this.answers[this.current.input.fork].value != this.current.input.case) {
+                return this.next();
+            }
+            if(!this.answers.hasOwnProperty(this.current.input.fork)) {
+                return this.next();
+            }
+        }
+        return true;
+    } else {
+        return false;
+    }
+};
+ConvState.prototype.printQuestion = function(){
+    var questions = this.current.input.questions;
+    var question = questions[Math.floor(Math.random() * questions.length)]; //get a random question from questions array
+    var ansWithin = question.match(/\{(.*?)\}(\:(\d)*)?/g); // searches for string replacements for answers and replaces them with previous aswers (warning: not checking if answer exists)
+    for(var key in ansWithin){
+        if(ansWithin.hasOwnProperty(key)){
+            var ansKey = ansWithin[key].replace(/\{|\}/g, "");
+            var ansFinalKey = ansKey;
+            var index = false;
+            if(ansKey.indexOf(':')!=-1){
+                ansFinalKey = ansFinalKey.split(':')[0];
+                index = ansKey.split(':')[1];
+            }
+            if(index!==false){
+                var replacement = this.answers[ansFinalKey].text.split(' ');
+                if(replacement.length >= index){
+                    question = question.replace(ansWithin[key], replacement[index]);
+                } else {
+                    question = question.replace(ansWithin[key], this.answers[ansFinalKey].text);
+                }
+            } else {
+                question = question.replace(ansWithin[key], this.answers[ansFinalKey].text);
+            }
+        }
+    }
+   var messageObj = $('<div class="message to typing"><div class="typing_loader"></div></div>');
+    setTimeout(function(){
+        $(this.wrapper).find('#messages').append(messageObj);
+        this.scrollDown();
+    }.bind(this), 100);
+    setTimeout(function(){
+        messageObj.html(question);
+        messageObj.removeClass('typing').addClass('ready');
+        if(this.current.input.type=="select"){
+            this.printAnswers(this.current.input.answers, this.current.input.multiple);
+        }
+        this.scrollDown();
+        if(this.current.input.hasOwnProperty('noAnswer')) {
+            if(this.next()){
+                setTimeout(function(){
+                    this.printQuestion();
+                }.bind(this),200);
+            } else {
+                this.parameters.eventList.onSubmitForm(this);
+            }
+        }
+        $(this.wrapper).find(this.parameters.inputIdHashTagName).focus();
+    }.bind(this), 500);
+};
+ConvState.prototype.printAnswers = function(answers, multiple){
+    this.wrapper.find('div.options div.option').remove();
+    if(multiple){
+        for(var i in answers){
+            if(answers.hasOwnProperty(i)){
+                var option = $('<div class="option">'+answers[i].text+'</div>')
+                    .data("answer", answers[i])
+                    .click(function(event){
+                        var indexOf = this.current.input.selected.indexOf($(event.target).data("answer").value);
+                        if(indexOf == -1){
+                            this.current.input.selected.push($(event.target).data("answer").value);
+                            $(event.target).addClass('selected');
+                        } else {
+                            this.current.input.selected.splice(indexOf, 1);
+                            $(event.target).removeClass('selected');
+                        }
+                        this.wrapper.find(this.parameters.inputIdHashTagName).removeClass('error');
+                        this.wrapper.find(this.parameters.inputIdHashTagName).val('');
+                        if(this.current.input.selected.length > 0) {
+                            this.wrapper.find('button.submit').addClass('glow');
+                        } else {
+                            this.wrapper.find('button.submit').removeClass('glow');
+                        }
+                    }.bind(this));
+                this.wrapper.find('div.options').append(option);
+                $(window).trigger('dragreset');
+            }
+        }
+    } else {
+        for(var i in answers){
+            if(answers.hasOwnProperty(i)){
+                var option = $('<div class="option">'+answers[i].text+'</div>')
+                    .data("answer", answers[i])
+                    .click(function(event){
+                        this.current.input.selected = $(event.target).data("answer").value;
+                        this.wrapper.find(this.parameters.inputIdHashTagName).removeClass('error');
+                        this.wrapper.find(this.parameters.inputIdHashTagName).val('');
+                        this.answerWith($(event.target).data("answer").text, $(event.target).data("answer"));
+                        this.wrapper.find('div.options div.option').remove();
+                    }.bind(this));
+                this.wrapper.find('div.options').append(option);
+                $(window).trigger('dragreset');
+            }
+        }
+    }
+    var diff = $(this.wrapper).find('div.options').height();
+    $(this.wrapper).find('#messages').css({paddingBottom: diff});
+
+};
+ConvState.prototype.answerWith = function(answerText, answerObject) {
+    //console.log('previous answer: ', answerObject);
+    //puts answer inside answers array to give questions access to previous answers
+    if(this.current.input.hasOwnProperty('name')){
+        if(typeof answerObject == 'string') {
+            if(this.current.input.type == 'tel')
+                answerObject = answerObject.replace(/\s|\(|\)|-/g, "");
+            this.answers[this.current.input.name] = {text: answerText, value: answerObject};
+            //console.log('previous answer: ', answerObject);
+        } else {
+            this.answers[this.current.input.name] = answerObject;
+        }
+        if(this.current.input.type == 'select' && !this.current.input.multiple) {
+            $(this.current.input.element).val(answerObject.value).change();
+        } else {
+            $(this.current.input.element).val(answerObject).change();
+        }
+    }
+    //prints answer within messages wrapper
+    if(this.current.input.type == 'password')
+        answerText = answerText.replace(/./g, '*');
+    var message = $('<div class="message from">'+answerText+'</div>');
+
+    //removes options before appending message so scroll animation runs without problems
+    $(this.wrapper).find("div.options div.option").remove();
+
+
+    var diff = $(this.wrapper).find('div.options').height();
+    $(this.wrapper).find('#messages').css({paddingBottom: diff});
+    $(this.wrapper).find(this.parameters.inputIdHashTagName).focus();
+    if (answerObject.hasOwnProperty('callback')) {
+        window[answerObject.callback](this);
+    }
+    setTimeout(function(){
+        $(this.wrapper).find("#messages").append(message);
+        this.scrollDown();
+    }.bind(this), 300);
+
+    $(this.form).append(this.current.input.element);
+    //goes to next state and prints question
+    if(this.next()){
+        setTimeout(function(){
+            this.printQuestion();
+        }.bind(this), 300);
+    } else {
+        this.parameters.eventList.onSubmitForm(this);
+    }
+};
+
+(function($){
+    $.fn.convform = function(options){
+        var wrapper = this;
+var parameters = $.extend(true, {}, {
+            placeHolder : 'Type Here',
+            typeInputUi : 'textarea',
+           
+            timeOutFirstQuestion : 1200,
+            buttonClassStyle : 'icon2-arrow',
+            eventList : {
+                onSubmitForm : function(convState) {
+                    console.log('completed');
+                    convState.form.submit();
+                    return true;
+                }
+        
+            },
+            formIdName : 'convForm',
+            inputIdName : 'userInput',
+            loadSpinnerVisible : '',
+            buttonText: ''
+        }, options);
+
+        /*
+        * this will create an array with all inputs, selects and textareas found
+        * inside the wrapper, in order of appearance
+        */
+        var inputs = $(this).find('input, select, textarea').map(function(){
+            var input = {};
+            if($(this).attr('name'))
+                input['name'] = $(this).attr('name');
+            if($(this).attr('data-no-answer'))
+                input['noAnswer'] = true;
+            if($(this).attr('required'))
+                input['required'] = true;
+            if($(this).attr('type'))
+                input['type'] = $(this).attr('type');
+            input['questions'] = $(this).attr('data-conv-question').split("|");
+            if($(this).attr('data-pattern'))
+                input['pattern'] = $(this).attr('data-pattern');
+            if($(this).attr('data-callback'))
+                input['callback'] = $(this).attr('data-callback');
+            if($(this).is('select')) {
+                input['type'] = 'select';
+                input['answers'] = $(this).find('option').map(function(){
+                    var answer = {};
+                    answer['text'] = $(this).text();
+                    answer['value'] = $(this).val();
+                    if($(this).attr('data-callback'))
+                        answer['callback'] = $(this).attr('data-callback');
+                    return answer;
+                }).get();
+                if($(this).prop('multiple')){
+                    input['multiple'] = true;
+                    input['selected'] = [];
+                } else {
+                    input['multiple'] = false;
+                    input['selected'] = "";
+                }
+            }
+            if($(this).parent('div[data-conv-case]').length) {
+                input['case'] = $(this).parent('div[data-conv-case]').attr('data-conv-case');
+                input['fork'] = $(this).parent('div[data-conv-case]').parent('div[data-conv-fork]').attr('data-conv-fork');
+            }
+            input['element'] = this;
+            $(this).detach();
+            return input;
+        }).get();
+
+        if(inputs.length) {
+            //hides original form so users cant interact with it
+            var form = $(wrapper).find('form').hide();
+
+            var inputForm;
+            parameters.inputIdHashTagName = '#' + parameters.inputIdName;
+
+            switch(parameters.typeInputUi) {
+                case 'input':
+                    inputForm = $('<form id="' + parameters.formIdName + '" class="convFormDynamic"><div class="options dragscroll"></div><input id="' + parameters.inputIdName + '" type="text" placeholder="'+ parameters.placeHolder +'" class="userInputDynamic"></><button type="submit" class="submit">'+parameters.buttonText+'</button><span class="clear"></span></form>');
+                    break;
+                case 'textarea':
+                    inputForm = $('<form id="' + parameters.formIdName + '" class="convFormDynamic"><div class="options dragscroll"></div><textare id="' + parameters.inputIdName + '" rows="1" placeholder="'+ parameters.placeHolder +'" class="userInputDynamic"></textarea><button type="submit" class="submit">'+parameters.buttonText+'</button><span class="clear"></span></form>');
+                    break;
+                default :
+                    console.log('typeInputUi must be input or textarea');
+                    return false;
+            }
+
+            //appends messages wrapper and newly created form with the spinner load
+            $(wrapper).append('<div class="wrapper-messages"><div class="spinLoader ' + parameters.loadSpinnerVisible + ' "></div><div id="messages"></div></div>');
+            $(wrapper).append(inputForm);
+
+            //creates new single state with first input
+            var singleState = new SingleConvState(inputs[0]);
+            //creates new wrapper state with first singlestate as current and gives access to wrapper element
+            var state = new ConvState(wrapper, singleState, form, parameters);
+            //creates all new single states with inputs in order
+            for(var i in inputs) {
+                if(i != 0 && inputs.hasOwnProperty(i)){
+                    singleState.next = new SingleConvState(inputs[i]);
+                    singleState = singleState.next;
+                }
+            }
+
+            //prints first question
+            setTimeout(function() {
+                $.when($('div.spinLoader').addClass('hidden')).done(function() {
+                    state.printQuestion();
+                });
+            }, parameters.timeOutFirstQuestion);
+
+            //binds enter to answer submit and change event to search for select possible answers
+            $(inputForm).find(parameters.inputIdHashTagName).keypress(function(e){
+                if(e.which == 13) {
+                    var input = $(this).val();
+                    e.preventDefault();
+                    if(state.current.input.type=="select" && !state.current.input.multiple){
+                        if(state.current.input.required) {
+                            state.wrapper.find('#userInputBot').addClass('error');
+                        } else {
+                            var results = state.current.input.answers.filter(function (el) {
+                                return el.text.toLowerCase().indexOf(input.toLowerCase()) != -1;
+                            });
+                            if (results.length) {
+                                state.current.input.selected = results[0];
+                                $(this).parent('form').submit();
+                            } else {
+                                state.wrapper.find(parameters.inputIdHashTagName).addClass('error');
+                            }
+                        }
+                    } else if(state.current.input.type=="select" && state.current.input.multiple) {
+                        if(input.trim() != "") {
+                            var results = state.current.input.answers.filter(function(el){
+                                return el.text.toLowerCase().indexOf(input.toLowerCase()) != -1;
+                            });
+                            if(results.length){
+                                if(state.current.input.selected.indexOf(results[0].value) == -1){
+                                    state.current.input.selected.push(results[0].value);
+                                    state.wrapper.find(parameters.inputIdHashTagName).val("");
+                                } else {
+                                    state.wrapper.find(parameters.inputIdHashTagName).val("");
+                                }
+                            } else {
+                                state.wrapper.find(parameters.inputIdHashTagName).addClass('error');
+                            }
+                        } else {
+                            if(state.current.input.selected.length) {
+                                $(this).parent('form').submit();
+                            }
+                        }
+                    } else {
+                        if(input.trim()!='' && !state.wrapper.find(parameters.inputIdHashTagName).hasClass("error")) {
+                            $(this).parent('form').submit();
+                        } else {
+                            $(state.wrapper).find(parameters.inputIdHashTagName).focus();
+                        }
+                    }
+                }
+                autosize.update($(state.wrapper).find(parameters.inputIdHashTagName));
+            }).on('input', function(e){
+                if(state.current.input.type=="select"){
+                    var input = $(this).val();
+                    var results = state.current.input.answers.filter(function(el){
+                        return el.text.toLowerCase().indexOf(input.toLowerCase()) != -1;
+                    });
+                    if(results.length){
+                        state.wrapper.find(parameters.inputIdHashTagName).removeClass('error');
+                        state.printAnswers(results, state.current.input.multiple);
+                    } else {
+                        state.wrapper.find(parameters.inputIdHashTagName).addClass('error');
+                    }
+                } else if(state.current.input.hasOwnProperty('pattern')) {
+                    var reg = new RegExp(state.current.input.pattern, 'i');
+                    if(reg.test($(this).val())) {
+                        state.wrapper.find(parameters.inputIdHashTagName).removeClass('error');
+                    } else {
+                        state.wrapper.find(parameters.inputIdHashTagName).addClass('error');
+                    }
+                }
+            });
+
+            $(inputForm).find('button.submit').click(function(e){
+                var input = $(state.wrapper).find(parameters.inputIdHashTagName).val();
+                e.preventDefault();
+                if(state.current.input.type=="select" && !state.current.input.multiple){
+                    if(state.current.input.required) {
+                        return false;
+                    } else {
+                        if (input == parameters.placeHolder) input = '';
+                        var results = state.current.input.answers.filter(function (el) {
+                            return el.text.toLowerCase().indexOf(input.toLowerCase()) != -1;
+                        });
+                        if (results.length) {
+                            state.current.input.selected = results[0];
+                            $(this).parent('form').submit();
+                        } else {
+                            state.wrapper.find(parameters.inputIdHashTagName).addClass('error');
+                        }
+                    }
+                } else if(state.current.input.type=="select" && state.current.input.multiple) {
+                    if(state.current.input.required) {
+                        return false;
+                    } else {
+                        if (input.trim() != "" && input != parameters.placeHolder) {
+                            var results = state.current.input.answers.filter(function (el) {
+                                return el.text.toLowerCase().indexOf(input.toLowerCase()) != -1;
+                            });
+                            if (results.length) {
+                                if (state.current.input.selected.indexOf(results[0].value) == -1) {
+                                    state.current.input.selected.push(results[0].value);
+                                    state.wrapper.find(parameters.inputIdHashTagName).val("");
+                                } else {
+                                    state.wrapper.find(parameters.inputIdHashTagName).val("");
+                                }
+                            } else {
+                                state.wrapper.find(parameters.inputIdHashTagName).addClass('error');
+                            }
+                        } else {
+                            if (state.current.input.selected.length) {
+                                $(this).removeClass('glow');
+                                $(this).parent('form').submit();
+                            }
+                        }
+                    }
+                } else {
+                    if(input.trim() != '' && !state.wrapper.find(parameters.inputIdHashTagName).hasClass("error")){
+                        $(this).parent('form').submit();
+                    } else {
+                        $(state.wrapper).find(parameters.inputIdHashTagName).focus();
+                    }
+                }
+                autosize.update($(state.wrapper).find(parameters.inputIdHashTagName));
+            });
+
+            //binds form submit to state functions
+            $(inputForm).submit(function(e){
+                e.preventDefault();
+                var answer = $(this).find(parameters.inputIdHashTagName).val();
+                $(this).find(parameters.inputIdHashTagName).val("");
+                if(state.current.input.type == 'select'){
+                    if(!state.current.input.multiple){
+                        state.answerWith(state.current.input.selected.text, state.current.input.selected);
+                    } else {
+                        state.answerWith(state.current.input.selected.join(', '), state.current.input.selected);
+                    }
+                } else {
+                    state.answerWith(answer, answer);
+                }
+            });
+
+
+            if(typeof autosize == 'function') {
+                $textarea = $(state.wrapper).find(parameters.inputIdHashTagName);
+                autosize($textarea);
+            }
+
+            return state;
+        } else {
+            return false;
+        }
+    }
+})( jQuery );
+
+$(function(){
+    //instantiate conversation form on .conv-form-wrapper (default class for plugin);
+    var convForm = $('.conv-form-wrapper').convform();
+    console.log(convForm);
+});
+</script>
+    
+    
+    
+    
+    
+    
+</body>
+</html>
+    </p>
+  </div>
+</div>
+
+<script>
+//links
+//http://eloquentjavascript.net/09_regexp.html
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
+nlp = window.nlp_compromise;
+
+var messages = [], //array that hold the record of each string in chat
+  lastUserMessage = "", //keeps track of the most recent input string from the user
+  botMessage = "", //var keeps track of what the chatbot is going to say
+  botName = 'Chatbot', //name of the chatbot
+  talking = true; //when false the speach function doesn't work
+//
+//
+//****************************************************************
+//****************************************************************
+//****************************************************************
+//****************************************************************
+//****************************************************************
+//****************************************************************
+//****************************************************************
+//edit this function to change what the chatbot says
+function chatbotResponse() {
+  talking = true;
+  botMessage = "Do you speak english?.... I need proper grammar,... im just a bot and cant communicate with retards"; //the default message
+
+  if (lastUserMessage === 'hi' || lastUserMessage =='hello') {
+    const hi = ['hi','howdy','hello']
+    botMessage = hi[Math.floor(Math.random()*(hi.length))];;
+  }
+
+  if (lastUserMessage === 'whats up') {
+    botMessage = 'chillin ';
+  }
+  if (lastUserMessage === 'name') {
+    botMessage = 'My name is ' + botName;
+  }
+   if (lastUserMessage === 'are you a robot?') {
+    botMessage = 'Im a chat bot..... bitch!!!! ';
+  }
+   if (lastUserMessage === 'why am i a bitch?') {
+    botMessage = 'asking me if I was a robot is a bitch move, am I doing robotics?';
+  }
+   if (lastUserMessage === 'sorry') {
+    botMessage = 'Now you know, apology excepted........ but youre still a bitch  ';
+  }
+  
+  if (lastUserMessage === 'im not a retard') {
+    botMessage = 'well....... you type like a retard! ';
+  }
+  if (lastUserMessage === 'fuck you') {
+    botMessage = 'fuck you back ';
+  }
+   if (lastUserMessage === 'what do you do as a chatbot?') {
+    botMessage = 'as a chatbot I can provide an interactive interface for website visitors..... when im applied as a landing page, im capable of increasing signups and user growth by more than 40 percent compared to traditional contact and signup forms, users are typically delighted to interact and chat with me, therefore im able to squeeze information like emails and phone numbers a question at a time, rather than filling out a long contact form.';
+  }
+ 
+   if (lastUserMessage === 'Why does my wife hate me?') {
+    botMessage = 'because you are a selfish asshole... your wife needs attention and also needs to feel loved, as soon as you realize your mistakes and correct them, your wife will love you again';
+  }
+  
+   if (lastUserMessage === 'How do you know this?') {
+    botMessage = ' i am programmed in such a way, I can know how women think, especially about relationships';
+  }
+  
+    if (lastUserMessage === 'who is the best dancer') {
+    botMessage = 'the best dancer is ethan when he does the floss';
+  }
+  
+     if (lastUserMessage === 'who is the best dog') {
+    botMessage = 'the best dog is annie';
+  }
+  
+      if (lastUserMessage === 'what is the best playstation') {
+    botMessage = 'the best playstation is the ps2, everyone knows this.';
+  }
+}
+//****************************************************************
+//****************************************************************
+//****************************************************************
+//****************************************************************
+//****************************************************************
+//****************************************************************
+//****************************************************************
+//
+//
+//
+//this runs each time enter is pressed.
+//It controls the overall input and output
+function newEntry() {
+  //if the message from the user isn't empty then run 
+  if (document.getElementById("chatbox").value != "") {
+    //pulls the value from the chatbox ands sets it to lastUserMessage
+    lastUserMessage = document.getElementById("chatbox").value;
+    //sets the chat box to be clear
+    document.getElementById("chatbox").value = "";
+    //adds the value of the chatbox to the array messages
+    messages.push(lastUserMessage);
+    //Speech(lastUserMessage);  //says what the user typed outloud
+    //sets the variable botMessage in response to lastUserMessage
+    chatbotResponse();
+    //add the chatbot's name and message to the array messages
+    messages.push("<b>" + botName + ":</b> " + botMessage);
+    // says the message using the text to speech function written below
+    Speech(botMessage);
+    //outputs the last few array elements of messages to html
+    for (var i = 1; i < 8; i++) {
+      if (messages[messages.length - i])
+        document.getElementById("chatlog" + i).innerHTML = messages[messages.length - i];
+    }
+  }
+}
+
+//text to Speech
+//https://developers.google.com/web/updates/2014/01/Web-apps-that-talk-Introduction-to-the-Speech-Synthesis-API
+function Speech(say) {
+  if ('speechSynthesis' in window && talking) {
+    var utterance = new SpeechSynthesisUtterance(say);
+    //msg.voice = voices[10]; // Note: some voices don't support altering params
+    //msg.voiceURI = 'native';
+    //utterance.volume = 1; // 0 to 1
+    //utterance.rate = 0.1; // 0.1 to 10
+    //utterance.pitch = 1; //0 to 2
+    //utterance.text = 'Hello World';
+    //utterance.lang = 'en-US';
+    speechSynthesis.speak(utterance);
+  }
+}
+
+//runs the keypress() function when a key is pressed
+document.onkeypress = keyPress;
+//if the key pressed is 'enter' runs the function newEntry()
+function keyPress(e) {
+  var x = e || window.event;
+  var key = (x.keyCode || x.which);
+  if (key == 13 || key == 3) {
+    //runs this function when enter is pressed
+    newEntry();
+  }
+  if (key == 38) {
+    console.log('hi')
+      //document.getElementById("chatbox").value = lastUserMessage;
+  }
+}
+
+//clears the placeholder text ion the chatbox
+//this function is set to run when the users brings focus to the chatbox, by clicking on it
+function placeHolder() {
+  document.getElementById("chatbox").placeholder = "";
+}
+</script>
+     
+</body>
+</html>
+
